@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Chatbot</title>
+  <link rel="icon" href="https://w7.pngwing.com/pngs/641/935/png-transparent-adobe-ae-hexa-tool-adobe-tools-icon-thumbnail.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #111 0%, #000 60%);
+    }
+    ::-webkit-scrollbar{
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center text-gray-200">
+
+  <!-- Glass Chat Container -->
+  <div class="w-full max-w-xl h-[80vh]
+              bg-white/10 backdrop-blur-xl
+              border border-white/20
+              rounded-2xl shadow-2xl
+              flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-5 py-4 text-center text-lg font-semibold
+                bg-white/5 border-b border-white/10">
+       AI Chatbot
+    </div>
+
+    <!-- Chat Area -->
+    <div id="chat" class="flex-1 p-4 space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600">
+
+      <div class="bg-white/10 backdrop-blur-md
+                  border border-white/10
+                  p-3 rounded-xl w-fit">
+        Hi 👋 Ask me anything!
+      </div>
+
+    </div>
+
+    <!-- Input -->
+    <form id="chatForm" class="p-4 flex gap-3 border-t border-white/10">
+
+      <input
+        id="message"
+        type="text"
+        placeholder="Type your message..."
+        class="flex-1 px-4 py-3 rounded-xl
+               bg-black/40 backdrop-blur-md
+               border border-white/10
+               text-gray-200 placeholder-gray-400
+               focus:outline-none focus:ring-2 focus:ring-gray-500"
+        required
+      />
+
+      <button
+        type="submit"
+        class="px-5 rounded-xl
+               bg-gray-800 hover:bg-gray-700
+               border border-white/10
+               transition">
+        Send
+      </button>
+
+    </form>
+  </div>
+
+<script>
+  const form = document.getElementById("chatForm");
+  const chat = document.getElementById("chat");
+  const input = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const userMessage = input.value;
+
+    // User bubble
+    chat.innerHTML += `
+      <div class="ml-auto bg-gray-700/70 backdrop-blur-md
+                  border border-white/10
+                  text-white p-3 rounded-xl w-fit">
+        ${userMessage}
+      </div>
+    `;
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+
+    // Loading bubble
+    const loadingDiv = document.createElement("div");
+    loadingDiv.id = "loading";
+    loadingDiv.className =
+      "bg-white/10 backdrop-blur-md border border-white/10 p-3 rounded-xl w-fit flex items-center gap-2";
+
+    loadingDiv.innerHTML = `
+      <span class="animate-pulse">AI is typing</span>
+      <span class="flex gap-1">
+        <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+        <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.15s]"></span>
+        <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.3s]"></span>
+      </span>
+    `;
+
+    chat.appendChild(loadingDiv);
+    chat.scrollTop = chat.scrollHeight;
+
+    const res = await fetch("/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: userMessage }),
+    });
+
+    const data = await res.json();
+    loadingDiv.remove();
+
+    chat.innerHTML += `
+      <div class="bg-white/10 backdrop-blur-md
+                  border border-white/10
+                  p-3 rounded-xl w-fit">
+        ${data.data}
+      </div>
+    `;
+
+    chat.scrollTop = chat.scrollHeight;
+  });
+</script>
+
+</body>
+</html>
