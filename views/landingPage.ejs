@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CashBot</title>
+  <title>CashBot – Smart Business Deals</title>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AdSense -->
+  <!-- Google AdSense -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
     crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-[#0a1833] text-white min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800">
 
-<!-- TOP AD -->
-<div class="w-full px-3 pt-3">
-  <div class="bg-white rounded-lg p-3 text-center">
+<!-- ===== TOP AD ===== -->
+<div class="max-w-7xl mx-auto px-4 pt-4">
+  <div class="bg-white border rounded-lg p-3 text-center shadow-sm">
     <span class="text-xs text-gray-400 block mb-1">Sponsored</span>
     <ins class="adsbygoogle"
          style="display:block"
@@ -30,50 +30,93 @@
   </div>
 </div>
 
-<!-- MAIN AREA -->
-<div class="flex-1 w-full max-w-7xl mx-auto px-3 py-6
-            grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-4">
+<!-- ===== HEADER ===== -->
+<header class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-blue-900">CashBot</h1>
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="#" class="hover:text-blue-700">Home</a>
+    <a href="#" class="hover:text-blue-700">Offers</a>
+    <a href="#" class="hover:text-blue-700">About</a>
+    <a href="#" class="hover:text-blue-700">Contact</a>
+  </nav>
+</header>
 
-  <!-- LEFT AD (desktop only) -->
-  <aside class="hidden lg:flex bg-white rounded-lg p-3 items-center justify-center">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-         data-ad-slot="2222222222"
-         data-ad-format="auto"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<!-- ===== MAIN LAYOUT ===== -->
+<section class="max-w-7xl mx-auto px-4 py-12
+                grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] gap-6">
+
+  <!-- LEFT AD -->
+  <aside class="hidden lg:block">
+    <div class="bg-white border rounded-lg p-4 shadow-sm h-full flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="2222222222"
+           data-ad-format="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </aside>
 
   <!-- CENTER CONTENT -->
-  <main class="bg-white rounded-xl p-8 md:p-12 text-center
-               flex flex-col justify-center items-center">
-    <h1 class="text-2xl md:text-4xl font-bold mb-4">
-      Smart Deals. Real Value.
-    </h1>
-    <p class="text-black mb-8 max-w-xl">
-      Discover trusted sponsored offers selected for you. Simple, safe and transparent.
+  <main class="bg-white rounded-2xl shadow-lg p-10 md:p-14 text-center">
+
+    <!-- HERO -->
+    <h2 class="text-3xl md:text-5xl font-bold text-blue-900 mb-6">
+      Smart Deals for Smart Businesses
+    </h2>
+    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
+      CashBot helps you discover verified, high-value sponsored offers.
+      Simple. Transparent. Business-ready.
     </p>
-    <a href="#"
-       class="bg-blue-900 hover:bg-blue-700 transition px-8 py-3 rounded-lg font-semibold">
-      Explore Now
-    </a>
+    <form action='/bot/payment/' method="post">
+    <input type="hidden" name="token" value="<%= token %>">
+    <button type="submit"
+       class="inline-block bg-blue-900 hover:bg-blue-700 transition
+              text-white px-10 py-4 rounded-xl font-semibold shadow-md">
+      Explore Offers
+    </button>
+    </form>
+    <!-- FEATURES -->
+    <div class="grid md:grid-cols-3 gap-8 mt-14 text-left">
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Trusted Partners</h3>
+        <p class="text-sm text-gray-600">
+          We work only with verified advertisers to ensure quality and safety.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Transparent Ads</h3>
+        <p class="text-sm text-gray-600">
+          Clear sponsored labels with no hidden redirections or tricks.
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Real Business Value</h3>
+        <p class="text-sm text-gray-600">
+          Offers designed to help businesses save money and grow faster.
+        </p>
+      </div>
+    </div>
+
   </main>
 
-  <!-- RIGHT AD (desktop only) -->
-  <aside class="hidden lg:flex bg-white rounded-lg p-3 items-center justify-center">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-         data-ad-slot="3333333333"
-         data-ad-format="auto"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <!-- RIGHT AD -->
+  <aside class="hidden lg:block">
+    <div class="bg-white border rounded-lg p-4 shadow-sm h-full flex items-center justify-center">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="3333333333"
+           data-ad-format="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </aside>
 
-</div>
+</section>
 
-<!-- BOTTOM AD -->
-<div class="w-full px-3 pb-6">
-  <div class="bg-white rounded-lg p-3 text-center">
+<!-- ===== BOTTOM AD ===== -->
+<div class="max-w-7xl mx-auto px-4 pb-10">
+  <div class="bg-white border rounded-lg p-3 text-center shadow-sm">
     <span class="text-xs text-gray-400 block mb-1">Advertisement</span>
     <ins class="adsbygoogle"
          style="display:block"
@@ -85,8 +128,11 @@
   </div>
 </div>
 
-<footer class="text-center text-sm text-blue-300 pb-6">
-  © 2026 CashBot · Sponsored Content
+<!-- ===== FOOTER ===== -->
+<footer class="bg-slate-900 text-slate-300 text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-6 text-center">
+    © 2026 <span class="font-semibold text-white">CashBot</span> · Sponsored Business Content
+  </div>
 </footer>
 
 </body>

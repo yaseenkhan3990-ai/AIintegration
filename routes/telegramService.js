@@ -17,8 +17,8 @@ router.get('/get', (req, res) => {
 });
 
 router.get('/page', (req, res) => {
-  // const { chatId, token } = req.query;
-  const chatId= req.query.chatId;
+  const { chatId, token } = req.query;
+  // const chatId= req.query.chatId;
   //console.log(chatId);
 
   if (!users[chatId]?.reward) {
@@ -31,8 +31,7 @@ router.get('/page', (req, res) => {
   if (Date.now() > expiresAt) return res.status(403).send("errorPage");
 
   delete users[chatId].reward;
-
-  res.render('landingPage');
+  res.render('landingPage' ,{chatId,token} );
 });
 
 
@@ -130,5 +129,13 @@ bot.on("callback_query", (query) => {
     });
   }
 });
+
+
+
+router.post('/payment',(req,res)=>{
+    const token=req.body.token;
+    console.log(token);  
+    res.redirect('/bot/page')
+})
 
 export default router;
