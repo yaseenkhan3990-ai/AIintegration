@@ -27,11 +27,12 @@ router.get('/page', (req, res) => {
 
   const { rewardToken, expiresAt } = users[chatId].reward;
    
-  // if (token !== rewardToken) return res.status(403).send("Invalid token");
+  // if(token !== rewardToken) return res.status(403).send("Invalid token");
   if (Date.now() > expiresAt) return res.status(403).send("errorPage");
 
   delete users[chatId].reward;
-  res.render('landingPage' ,{chatId,token} );
+  // console.log(rewardToken);
+  res.render('landingPage' ,{chatId,rewardToken} );
 });
 
 
@@ -80,7 +81,7 @@ bot.on("callback_query", (query) => {
   if (data.startsWith("pick_")) {
     const userPick = Number(data.split("_")[1]);
     // const luckyNumber = Math.floor(Math.random() * 9) + 1;
-        const luckyNumber =3;
+    const luckyNumber =3;
 
     let message = `🎰 *Lucky Number:* ${luckyNumber}\n🎯 *Your Pick:* ${userPick}\n\n`;
 
@@ -102,7 +103,7 @@ bot.on("callback_query", (query) => {
       return bot.sendMessage(chatId, message, {
         parse_mode: "Markdown",
         reply_markup: {
-          inline_keyboard: [
+          inline_keyboard:[
             [{ text: "🎁 Claim Reward", url: rewardUrl }],
             [{ text: "🔁 Play Again", callback_data: "play" }]
           ]
@@ -118,7 +119,6 @@ bot.on("callback_query", (query) => {
     }
 
     message += `\n\n💰 *Coins:* ${users[chatId].coins}`;
-
     return bot.sendMessage(chatId, message, {
       parse_mode: "Markdown",
       reply_markup: {
@@ -130,12 +130,11 @@ bot.on("callback_query", (query) => {
   }
 });
 
-
-
 router.post('/payment',(req,res)=>{
-    const token=req.body.token;
-    console.log(token);  
-    res.redirect('/bot/page')
+    const chatId=req.body.token;
+    // console.log(token);
+    if(!chatId) return res.status(400).send("Token is required");  
+    res.redirect('https://docs.google.com/forms/d/e/1FAIpQLSeVWIpsne2vfOZZD1Wa0fKL6PN1IDUaN30oHIJ_l9DRHcyhsA/viewform?usp=publish-editor');
 })
 
 export default router;
